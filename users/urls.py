@@ -3,7 +3,8 @@ from users import views
 
 # user/...
 urlpatterns = [
-    path('<int:uid>', views.show_history),
+    path('', views.show_history),
+    path('all', views.show_all),
     path('create', views.create),
     path('login', views.login),
     path('set', views.update),

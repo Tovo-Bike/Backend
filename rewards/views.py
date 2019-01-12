@@ -55,6 +55,8 @@ def equip_title(request):
         return HttpResponseForbidden("Wrong ID")
     if user.titles_had.filter(id=title.id).exists():
         user.title_equipped = title
+        user.save()
+        return HttpResponse("Successfully equipped")
     else:
         return HttpResponseForbidden("User doesn't have such title")
     
@@ -111,9 +113,10 @@ def rank_taker(request):
     GET: show takers' rank
     """
     rank = User.objects.order_by('-gear')
+    print(rank)
     res = [{
         'name' : r.name,
-        'title' : r.title_equipped.name,
+        'title' : r.title_equipped.name if r.title_equipped is not None else "",
         'gear' : r.gear
     } for r in rank]
     return JsonResponse(res, safe=False)
@@ -126,7 +129,7 @@ def rank_rider(request):
     rank = User.objects.order_by('-rose')
     res = [{
         'name' : r.name,
-        'title' : r.title_equipped.name,
-        'rose' : r.gear
+        'title' : r.title_equipped.name if r.title_equipped is not None else "",
+        'rose' : r.rose
     } for r in rank]
     return JsonResponse(res, safe=False)

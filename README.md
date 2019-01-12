@@ -2,12 +2,13 @@
 
 ## 使用者
 
-### "/user/:id"
+### "/user"
 
 獲得使用者歷史紀錄
 
 * method: GET
-* args: none
+* args: 
+    * "uid" (int) - please pass with url
 * return: array of json with keys below
     * "taker" : name (string)
     * "rider" : name (string)
@@ -16,6 +17,17 @@
     * "start_time" (datetime)
     * "end_time" (datetime)
     * "duration" : minutes (int)
+
+### "/user/all"
+
+獲得自己以外的使用者清單
+
+* method: GET
+* args:
+    * "uid" (int) - please pass with url
+* return: array of json
+    * "uid" (int)
+    * "name" (string)
 
 ### "/user/create"
 
@@ -32,7 +44,7 @@
 
 登入
 
-* method: GET
+* method: POST
 * args:
     * "name" (string)
     * "password" (string)
@@ -44,7 +56,7 @@
 
 設定體重
 
-* method: GET
+* method: POST
 * args: json
     * "uid" (int)
     * "weight" (int)
@@ -111,7 +123,7 @@
 
 ### "/trip/rate"
 
-評分，我會判斷誰評誰
+評分，自動自動判斷誰評誰
 
 * method: POST
 * args: 

@@ -16,8 +16,8 @@ class Trip(models.Model):
     depart_lat = models.DecimalField(max_digits=9, decimal_places=6)
     dest_lon = models.DecimalField(max_digits=9, decimal_places=6)
     dest_lat = models.DecimalField(max_digits=9, decimal_places=6)
-    taker_score = models.IntegerField(null=True)
-    rider_score = models.IntegerField(null=True)
+    taker_score = models.IntegerField(default=0)
+    rider_score = models.IntegerField(default=0)
     start_time = models.DateTimeField(null=True)
     arrival_time = models.DateTimeField(null=True)
 

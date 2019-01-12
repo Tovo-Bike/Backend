@@ -8,10 +8,29 @@ from .models import User
 from trips.models import Trip
 import json
 
-def show_history(request, uid):
+
+def show_all(request):
+    """
+    GET: show all users
+
+    Params: uid
+    """
+    uid = request.GET.get('uid')
+    users = User.objects.exclude(id=uid)
+    res = [{
+        'uid' : u.id,
+        'name' : u.name,
+    } for u in users]
+    return JsonResponse(res, safe=False)
+
+
+def show_history(request):
     """
     GET: show a user's historical trips
+
+    Params: uid
     """ 
+    uid = request.GET.get('uid')
     his = Trip.objects.filter(Q(taker__id=uid) | Q(rider__id=uid)).exclude(arrival_time__isnull=True)
     res = [{
         'taker' : h.taker.name,
