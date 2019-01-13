@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import HttpResponse, JsonResponse, HttpResponseForbidden, HttpResponseNotAllowed
+from django.conf import settings
 from users.models import User
 from .models import Title
 import json
+import os
+
 
 
 def buy_titles(request):
@@ -78,8 +81,10 @@ def list_titles(request):
         "ttid" : t.id,
         "name" : t.name,
         "price" : t.price,
-        "job" : t.get_job_display()
+        "job" : t.get_job_display(),
+        "image" : request.build_absolute_uri(t.image.url)
     } for t in titles]
+    print(request.build_absolute_uri())
     return JsonResponse(res, safe=False)
 
 

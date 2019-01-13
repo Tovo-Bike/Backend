@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 import users
 import trips
 from rewards.views import buy_titles, equip_title, transfer, list_titles, rank_taker, rank_rider
@@ -30,4 +32,4 @@ urlpatterns = [
     path('titles', list_titles),
     path('rank/taker', rank_taker),
     path('rank/rider', rank_rider),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
