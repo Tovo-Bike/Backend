@@ -42,7 +42,7 @@ def find(request):
             'tid': a.id,
             'name': a.rider.name,
             'gender' : a.rider.get_gender_display(),
-            'score' : round(a.rider.score_as_rider / a.rose, 1) if a.rose > 0 else 0,
+            'score' : round(a.rider.score_as_rider / a.rider.rose, 1) if a.rose > 0 else 0,
             'weight': a.rider.weight, 
             'slon': a.depart_lon,
             'slat': a.depart_lat,
