@@ -74,7 +74,7 @@
     * "tid" : trip ID (int)
     * "name" (string)
     * "gender" : "Male" or "Female" (string)
-    * "score" : (float)
+    * "score" (float)
     * "weight" (int)
     * "slon" : starting longitude (float)
     * "slat" : starting latitude (float)
