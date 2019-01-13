@@ -6,7 +6,7 @@ from users.models import User
 from .models import Title
 import json
 import os
-
+from datetime import datetime
 
 
 def buy_titles(request):
@@ -130,11 +130,11 @@ def rank_taker(request):
     GET: show takers' rank
     """
     rank = User.objects.order_by('-gear')
-    print(rank)
     res = [{
         'name' : r.name,
         'title' : r.title_equipped.name if r.title_equipped is not None else "",
-        'gear' : r.gear
+        'gear' : r.gear,
+        'day' : (datetime.now().date() - r.reg_time).days,
     } for r in rank]
     return JsonResponse(res, safe=False)
 
@@ -147,6 +147,7 @@ def rank_rider(request):
     res = [{
         'name' : r.name,
         'title' : r.title_equipped.name if r.title_equipped is not None else "",
-        'rose' : r.rose
+        'rose' : r.rose,
+        'day' : (datetime.now().date() - r.reg_time).days,
     } for r in rank]
     return JsonResponse(res, safe=False)

@@ -5,6 +5,7 @@
 ```shell
 pip install django
 pip install django-cors-headers
+pip install Pillow
 ```
 
 ## API
@@ -18,7 +19,7 @@ pip install django-cors-headers
 * method: GET
 * args: 
     * "uid" (int)
-* return: array of json with keys below
+* return: json
     * "taker" : name (string)
     * "rider" : name (string)
     * "taker_score" (int)
@@ -107,7 +108,7 @@ pip install django-cors-headers
 
 * method: GET
 * args: none
-* return:
+* return: json
     * "tid" : trip ID (int)
     * "name" (string)
     * "gender" : "Male" or "Female" (string)
@@ -118,13 +119,14 @@ pip install django-cors-headers
     * "slat" : starting latitude (float)
     * "elon" : ending longitude (float)
     * "elat" : ending latitude (float)
+    * "duration" : estimated time of the trip (int)
 
 #### "/trip/go"
 
 新增旅程
 
 * method: POST
-* args: 
+* args:
     * "uid" (int)
     * "slon" (float)
     * "slat" (float)
@@ -226,6 +228,7 @@ pip install django-cors-headers
     * "name" (string)
     * "title" (string)
     * "gear" (int)
+    * "day" (int)
 
 #### "/rank/rider"
 
@@ -235,3 +238,4 @@ pip install django-cors-headers
     * "name" (string)
     * "title" (string)
     * "rose" (int)
+    * "day" (int)
