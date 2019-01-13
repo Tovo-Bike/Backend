@@ -138,7 +138,7 @@ def end(request):
 
     taker = trip.taker
     taker.gear += 1
-    taker.times_as_timer += 1
+    taker.times_as_taker += 1
     taker.save()
     rider = trip.rider
     rider.times_as_rider += 1
