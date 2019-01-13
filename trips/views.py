@@ -41,6 +41,8 @@ def find(request):
         {
             'tid': a.id,
             'name': a.rider.name,
+            'gender' : a.rider.get_gender_display(),
+            'score' : round(a.rider.score_as_rider / a.rose, 1) if a.rose > 0 else 0,
             'weight': a.rider.weight, 
             'slon': a.depart_lon,
             'slat': a.depart_lat,
@@ -112,10 +114,14 @@ def rate(request):
     """
     data = json.loads(request.body)
     trip = Trip.objects.get(id=data['tid'])
+    user = User.objects.get(id=data['uid']) 
     if trip.taker.id == data['uid']:
         trip.rider_score = data['point']
+        user.score_as_rider += data['point']
     else:
         trip.taker_score = data['point']
+        user.score_as_taker += data['point']
+    user.save()
     trip.save()
 
     return HttpResponse("Successfully rated")

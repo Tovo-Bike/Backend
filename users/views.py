@@ -52,14 +52,14 @@ def create(request):
         request.email
         request.name
         request.password
+        request.gender
     """
     data = json.loads(request.body)
-    email = data['email']
     name = data['name']
     if User.objects.filter(name=name).exists():
         return HttpResponseForbidden("User exists")
     password = hashers.make_password(data['password'])
-    user = User(name=name, password=password, email=email)
+    user = User(name=name, password=password, email=data['email'], gender=data['gender'])
     user.save()
     return HttpResponse("Successfully created")
 
