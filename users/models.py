@@ -6,6 +6,8 @@ class User(models.Model):
     password = models.CharField(max_length=128)
     email = models.EmailField()
     gender = models.CharField(max_length=1, choices=GENDER)
+    image = models.CharField(max_length=100, 
+                    default="https://basinred.com/wp-content/uploads/2016/09/default-user-img.jpg")
     weight = models.IntegerField(default=60)
     rose = models.IntegerField(default=0)
     gear = models.IntegerField(default=0)

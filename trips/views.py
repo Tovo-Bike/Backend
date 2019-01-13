@@ -11,7 +11,7 @@ import json
 
 def lanuch(request):
     """
-    POST: A user launches a new trip
+    POST: A rider launches a new trip
 
     Args:
         request.uid
@@ -42,8 +42,10 @@ def find(request):
             'tid': a.id,
             'name': a.rider.name,
             'gender' : a.rider.get_gender_display(),
-            'score' : round(a.rider.score_as_rider / a.rider.rose, 1) if a.rider.rose > 0 else 0,
+            'score' : round(a.rider.score_as_rider / a.rider.times_as_rider, 1) \
+                        if a.rider.times_as_rider > 0 else 0,
             'weight': a.rider.weight, 
+            'image' : a.rider.image,
             'slon': a.depart_lon,
             'slat': a.depart_lat,
             'elon': a.dest_lon,
@@ -98,8 +100,10 @@ def end(request):
 
     taker = trip.taker
     taker.gear += 1
+    taker.times_as_timer += 1
     taker.save()
     rider = trip.rider
+    rider.times_as_rider += 1
     rider.rose += 1
     rider.save()
     return JsonResponse({'time': dur}) 

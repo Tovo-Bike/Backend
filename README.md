@@ -11,13 +11,13 @@ pip install django-cors-headers
 
 ### 使用者
 
-#### "/user"
+#### "/user/his"
 
 獲得使用者歷史紀錄
 
 * method: GET
 * args: 
-    * "uid" (int) - please pass with url
+    * "uid" (int)
 * return: array of json with keys below
     * "taker" : name (string)
     * "rider" : name (string)
@@ -26,6 +26,23 @@ pip install django-cors-headers
     * "start_time" (datetime)
     * "end_time" (datetime)
     * "duration" : minutes (int)
+
+#### "/user/profile"
+
+獲得使用者個人檔案
+
+* method: GET
+* args: 
+    * "uid" (int)
+* return: array of json with keys below
+    * "name" (string)
+    * "email" (string)
+    * "weight" (int)
+    * "score_as_taker" (float)
+    * "score_as_rider" (float)
+    * "gear" (int)
+    * "rose" (int)
+
 
 #### "/user/all"
 
@@ -47,6 +64,7 @@ pip install django-cors-headers
     * "email" (string)
     * "name" (string)
     * "password" (string)
+    * "gender" : "F" or "M" (char)
 * return: none
 
 #### "/user/login"
@@ -61,7 +79,7 @@ pip install django-cors-headers
     * "uid" : user ID (int)
     * "name" (string)
 
-#### "/user/set"
+#### "/user/set-weight"
 
 設定體重
 
@@ -71,9 +89,19 @@ pip install django-cors-headers
     * "weight" (int)
 * return: none
 
+#### "/user/set-profile"
+
+設定大頭貼
+
+* method: POST
+* args: json
+    * "uid" (int)
+    * "image" (string)
+* return: none
+
 ## 旅程
 
-#### "/trip"
+#### "/trip/"
 
 查看還沒有人接的單
 
@@ -85,6 +113,7 @@ pip install django-cors-headers
     * "gender" : "Male" or "Female" (string)
     * "score" (float)
     * "weight" (int)
+    * "image" : url of image (string)
     * "slon" : starting longitude (float)
     * "slat" : starting latitude (float)
     * "elon" : ending longitude (float)
