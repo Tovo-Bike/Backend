@@ -15,7 +15,7 @@ def show_all(request):
 
     Params: uid
     """
-    data = json.load(request.body)
+    data = json.loads(request.body)
     uid = data['uid']
     users = User.objects.exclude(id=uid)
     res = [{
@@ -31,7 +31,7 @@ def show_history(request):
 
     Params: uid
     """
-    data = json.load(request.body)
+    data = json.loads(request.body)
     uid = data['uid']
     his = Trip.objects.filter(Q(taker__id=uid) | Q(
         rider__id=uid)).exclude(arrival_time__isnull=True)
@@ -47,15 +47,17 @@ def show_history(request):
     return JsonResponse(res, safe=False)
 
 
-def show_profile(request, uid):
+def show_profile(request):
     """
     GET: A user require its profile
     """
-    user = User.objects.get('uid')
+    data = json.loads(request.body)
+    user = User.objects.get(data['uid'])
     res = {
         'name': user.name,
         'email': user.email,
         'weight': user.weight,
+        'image': user.image,
         'score_as_taker': round(user.score_as_taker / user.times_as_taker) \
                             if user.times_as_taker > 0 else 0,
         'score_as_rider': round(user.score_as_rider / user.times_as_rider) \
@@ -64,6 +66,20 @@ def show_profile(request, uid):
         'rose': user.rose,
     }
     return JsonResponse(res)
+
+def update(request):
+    """
+    POST: update user profile
+    """
+    data = json.loads(request.body)
+    user = User.objects.get(data['uid'])
+    user.name = data['name']
+    user.email = data['email']
+    user.weight = data['weight']
+    user.image = data['image']
+    user.save()
+    print("Successfully updated weight")
+    return HttpResponse()
 
 
 def create(request):
@@ -109,35 +125,3 @@ def login(request):
     else:
         print("Wrong password")
         return HttpResponseForbidden()
-
-
-def set_weight(request):
-    """
-    POST: A user sets its weight
-
-    Args:
-        request.uid
-        request.weight
-    """
-    data = json.loads(request.body)
-    user = User.objects.get(id=data['uid'])
-    user.weight = data['weight']
-    user.save()
-    print("Successfully updated weight")
-    return HttpResponse()
-
-
-def set_profile(request):
-    """
-    POST: A user sets its profile
-
-    Args:
-        request.uid
-        request.image
-    """
-    data = json.loads(request.body)
-    user = User.objects.get(id=data['uid'])
-    user.image = data['image']
-    user.save()
-    print("Successfullt updated profile")
-    return HttpResponse()
