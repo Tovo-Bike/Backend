@@ -8,6 +8,5 @@ urlpatterns = [
     path('all', views.show_all),
     path('create', views.create),
     path('login', views.login),
-    path('set-weight', views.set_weight),
-    path('set-profile', views.set_profile),
+    path('update', views.update),
 ]

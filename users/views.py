@@ -77,7 +77,6 @@ def update(request):
     user.email = data['email']
     user.weight = data['weight']
     user.image = data['image']
-    user.save()
     print("Successfully updated weight")
     return HttpResponse()
 
@@ -125,3 +124,4 @@ def login(request):
     else:
         print("Wrong password")
         return HttpResponseForbidden()
+

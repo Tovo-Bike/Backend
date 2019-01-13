@@ -80,25 +80,19 @@ pip install Pillow
     * "uid" : user ID (int)
     * "name" (string)
 
-#### "/user/set-weight"
+#### "/user/update"
 
-設定體重
+更新個人資料
 
 * method: POST
 * args: json
     * "uid" (int)
+    * "name" (string)
+    * "email" (string)
     * "weight" (int)
-* return: none
-
-#### "/user/set-profile"
-
-設定大頭貼
-
-* method: POST
-* args: json
-    * "uid" (int)
     * "image" (string)
 * return: none
+
 
 ## 旅程
 
