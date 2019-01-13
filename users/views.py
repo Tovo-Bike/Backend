@@ -57,16 +57,19 @@ def show_profile(request):
     """
     data = json.loads(request.body)
     user = User.objects.get(id=data['uid'])
-
-
-
     res = {
         'name': user.name,
         'email': user.email,
         'weight': user.weight,
         'gender': user.gender,
-        'title_equipped': user.title_equipped.name if user.title_equipped is not None else "",
-        'titles_had': [ { "ttid": t.id, "name": t.name } for t in user.titles_had.all() ],
+        'title_equipped': { 
+            "ttid": user.title_equipped.id,
+            "name": user.title_equipped.name 
+        } if user.title_equipped is not None else "",
+        'titles_had': [ { 
+            "ttid": t.id, 
+            "name": t.name 
+            } for t in user.titles_had.all() ],
         'image': user.image,
         'score_as_taker': round(user.score_as_taker / user.times_as_taker) \
                             if user.times_as_taker > 0 else 0,
@@ -82,12 +85,13 @@ def update(request):
     POST: update user profile
     """
     data = json.loads(request.body)
-    user = User.objects.get(data['uid'])
+    user = User.objects.get(id=data['uid'])
     user.name = data['name']
     user.email = data['email']
     user.weight = data['weight']
     user.image = data['image']
     user.gender = data['gender']
+
     user.save()
     print("Successfully updated weight")
     return HttpResponse()
