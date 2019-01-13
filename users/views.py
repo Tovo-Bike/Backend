@@ -57,11 +57,13 @@ def create(request):
     data = json.loads(request.body)
     name = data['name']
     if User.objects.filter(name=name).exists():
-        return HttpResponseForbidden("User exists")
+        print("User exists")
+        return HttpResponseForbidden()
     password = hashers.make_password(data['password'])
     user = User(name=name, password=password, email=data['email'], gender=data['gender'])
     user.save()
-    return HttpResponse("Successfully created")
+    print("Successfully created")
+    return HttpResponse()
 
 
 def login(request):
@@ -76,12 +78,14 @@ def login(request):
     try:
         user = User.objects.get(name=data['name'])
     except ObjectDoesNotExist:
-        return HttpResponseForbidden("User not found")
+        print("User not found")
+        return HttpResponseForbidden()
 
     if hashers.check_password(data['password'], user.password):
         return JsonResponse({'uid': user.id, 'name': user.name})
     else:
-        return HttpResponseForbidden("Wrong password ")
+        print("Wrong password")
+        return HttpResponseForbidden()
 
 
 def update(request):
@@ -96,4 +100,5 @@ def update(request):
     user = User.objects.get(id=data['uid'])
     user.weight = data['weight']
     user.save()
-    return HttpResponse("Successfully updated")
+    print("Successfully updated")
+    return HttpResponse()

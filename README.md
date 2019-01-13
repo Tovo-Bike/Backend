@@ -1,8 +1,17 @@
-# API
+# Tovo Backend
 
-## 使用者
+## Set up
 
-### "/user"
+```shell
+pip install django
+pip install django-cors-headers
+```
+
+## API
+
+### 使用者
+
+#### "/user"
 
 獲得使用者歷史紀錄
 
@@ -18,7 +27,7 @@
     * "end_time" (datetime)
     * "duration" : minutes (int)
 
-### "/user/all"
+#### "/user/all"
 
 獲得自己以外的使用者清單
 
@@ -29,7 +38,7 @@
     * "uid" (int)
     * "name" (string)
 
-### "/user/create"
+#### "/user/create"
 
 註冊新使用者
 
@@ -40,7 +49,7 @@
     * "password" (string)
 * return: none
 
-### "/user/login"
+#### "/user/login"
 
 登入
 
@@ -52,7 +61,7 @@
     * "uid" : user ID (int)
     * "name" (string)
 
-### "/user/set"
+#### "/user/set"
 
 設定體重
 
@@ -64,7 +73,7 @@
 
 ## 旅程
 
-### "/trip"
+#### "/trip"
 
 查看還沒有人接的單
 
@@ -81,7 +90,7 @@
     * "elon" : ending longitude (float)
     * "elat" : ending latitude (float)
 
-### "/trip/go"
+#### "/trip/go"
 
 新增旅程
 
@@ -95,7 +104,7 @@
 * return:
     * "tid" : trip ID (int)
 
-### "/trip/accept"
+#### "/trip/accept"
 
 接單
 
@@ -105,7 +114,7 @@
     * "tid" (int)
 * return: none
 
-### "/trip/start"
+#### "/trip/start"
 
 旅程開始
 
@@ -114,7 +123,7 @@
     * "tid" (int)
 * return: none
 
-### "/trip/end"
+#### "/trip/end"
 
 旅程結束
 
@@ -123,7 +132,7 @@
     * "tid" (int)
 * return: none
 
-### "/trip/rate"
+#### "/trip/rate"
 
 評分，自動自動判斷誰評誰
 
@@ -136,7 +145,7 @@
 
 ## 獎賞
 
-### "/buy"
+#### "/buy"
 
 買 title
 
@@ -146,7 +155,7 @@
     * "ttid" : title ID (int)
 * return: none
 
-### "/equip"
+#### "/equip"
 
 裝備 title
 
@@ -156,7 +165,7 @@
     * "ttid" (int)
 * return none
 
-### "/give"
+#### "/give"
 
 轉錢
 
@@ -168,7 +177,7 @@
     * "unit" : "gear" or "rose" (string)
 * return: none
 
-### "/titles"
+#### "/titles"
 
 查看可購買的 titles
 
@@ -180,7 +189,7 @@
     * "price" (iny)
     * "job" : "Taker" or "Rider" (string)
 
-### "/rank/taker"
+#### "/rank/taker"
 
 * method: GET
 * args: none
@@ -189,7 +198,7 @@
     * "title" (string)
     * "gear" (int)
 
-### "/rank/rider"
+#### "/rank/rider"
 
 * method: GET
 * args: none

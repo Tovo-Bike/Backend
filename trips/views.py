@@ -64,7 +64,8 @@ def accept(request):
     trip = Trip.objects.get(id=data['tid'])
     trip.taker = User.objects.get(id=data['uid'])
     trip.save()
-    return HttpResponse("Successfully accepted")
+    print("Successfully accepted")
+    return HttpResponse()
 
 
 def start(request):
@@ -78,7 +79,8 @@ def start(request):
     trip = Trip.objects.get(id=data['tid'])
     trip.start_time = timezone.now()
     trip.save()
-    return HttpResponse("Trip started")
+    print("Trip started")
+    return HttpResponse()
 
 
 def end(request):
@@ -123,5 +125,5 @@ def rate(request):
         user.score_as_taker += data['point']
     user.save()
     trip.save()
-
-    return HttpResponse("Successfully rated")
+    print("Successfully rated")
+    return HttpResponse()

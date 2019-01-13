@@ -19,24 +19,29 @@ def buy_titles(request):
         user = User.objects.get(id=data['uid'])
         title = Title.objects.get(id=data['ttid'])
     except ObjectDoesNotExist:
-        return HttpResponseForbidden("Wrong ID")
+        print("Wrong ID")
+        return HttpResponseForbidden()
 
     if user.titles_had.filter(id=data['ttid']).exists():
-        return HttpResponseForbidden("User already bought this title")
+        print("User already bought this title")
+        return HttpResponseForbidden()
 
     if title.get_job_display() == 'Taker':
         if user.gear < title.price:
-            return HttpResponseForbidden("User's gears not enough")
+            print("User's gears not enough")
+            return HttpResponseForbidden()
         user.gear -= title.price
         user.save()
     if title.get_job_display() == 'Rider':
         if user.rose < title.price:
-            return HttpResponseForbidden("User's roses not enough") 
+            print("User's roses not enough")
+            return HttpResponseForbidden() 
         user.rose -= title.price
         user.save()
 
     user.titles_had.add(title)
-    return HttpResponse("Successfully buy new titles")
+    print("Successfully buy new titles")
+    return HttpResponse()
 
 
 def equip_title(request):
@@ -52,13 +57,16 @@ def equip_title(request):
         user = User.objects.get(id=data['uid'])
         title = Title.objects.get(id=data['ttid'])
     except ObjectDoesNotExist:
-        return HttpResponseForbidden("Wrong ID")
+        print("Wrong ID")
+        return HttpResponseForbidden()
     if user.titles_had.filter(id=title.id).exists():
         user.title_equipped = title
         user.save()
-        return HttpResponse("Successfully equipped")
+        print("Successfully equipped")
+        return HttpResponse()
     else:
-        return HttpResponseForbidden("User doesn't have such title")
+        print("User doesn't have such title")
+        return HttpResponseForbidden()
     
 
 def list_titles(request):
@@ -90,22 +98,26 @@ def transfer(request):
         me = User.objects.get(id=data['uid'])
         him = User.objects.get(id=data['u2id'])
     except ObjectDoesNotExist:
-        return HttpResponseForbidden("User not found")
+        print("User not found")
+        return HttpResponseForbidden()
 
     if data['unit'] == 'rose' and me.rose >= data['amount']:
         me.rose -= data['amount']
         me.save()
         him.rose += data['amount']
         him.save()
-        return HttpResponse("Successfully transfered")
+        print("Successfully transfered")
+        return HttpResponse()
     elif data['unit'] == 'gear' and me.gear >= data['amount']:
         me.gear -= data['amount']
         me.save()
         him.gear += data['amount']
         him.save()
-        return HttpResponse("Successfully transfered")
+        print("Successfully transfered")
+        return HttpResponse()
     else:
-        return HttpResponseForbidden("Failed to transfer")
+        print("Failed to transfer")
+        return HttpResponseForbidden()
 
 
 def rank_taker(request):
