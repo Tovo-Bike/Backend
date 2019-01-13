@@ -11,7 +11,7 @@ import json
 
 def show_all(request):
     """
-    GET: show all users except the user itself
+    POST: show all users except the user itself
 
     Params: uid
     """
@@ -27,17 +27,17 @@ def show_all(request):
 
 def show_history(request):
     """
-    GET: show a user's historical trips
+    POST: show a user's historical trips
 
     Params: uid
     """
     data = json.loads(request.body)
     uid = data['uid']
-    his = Trip.objects.filter(taker__id=uid) | Trip.objects.filter(rider__id=uid)
-   
-    print("aaa", his)
-    his.exclude(start_time__isnull=True).exclude(arrival_time__isnull=True)
-    print("bbb", his)
+    his = Trip.objects.filter(
+        taker__isnull=False,
+        start_time__isnull=False,
+        arrival_time__isnull=False,
+    )
     res = [{
         'taker': h.taker.name,
         'rider': h.rider.name,
@@ -47,20 +47,26 @@ def show_history(request):
         'end_time': h.arrival_time,
         'duratoin': round((h.arrival_time - h.start_time).seconds / 60)
     } for h in his]
+    print("Show history")
     return JsonResponse(res, safe=False)
 
 
 def show_profile(request):
     """
-    GET: A user require its profile
+    POST: A user require its profile
     """
     data = json.loads(request.body)
     user = User.objects.get(id=data['uid'])
-    print("name", user.name)
+
+
+
     res = {
         'name': user.name,
         'email': user.email,
         'weight': user.weight,
+        'gender': user.gender,
+        'title_equipped': user.title_equipped.name if user.title_equipped is not None else "",
+        'titles_had': [ { "ttid": t.id, "name": t.name } for t in user.titles_had.all() ],
         'image': user.image,
         'score_as_taker': round(user.score_as_taker / user.times_as_taker) \
                             if user.times_as_taker > 0 else 0,
@@ -81,6 +87,8 @@ def update(request):
     user.email = data['email']
     user.weight = data['weight']
     user.image = data['image']
+    user.gender = data['gender']
+    user.save()
     print("Successfully updated weight")
     return HttpResponse()
 

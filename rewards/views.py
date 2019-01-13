@@ -84,7 +84,7 @@ def list_titles(request):
         "job" : t.get_job_display(),
         "image" : request.build_absolute_uri(t.image.url)
     } for t in titles]
-    print(request.build_absolute_uri())
+    print("Successfully listed titles")
     return JsonResponse(res, safe=False)
 
 
@@ -138,6 +138,7 @@ def rank_taker(request):
         'score' : round(r.score_as_taker / r.times_as_taker) \
                   if r.times_as_taker > 0 else 0,
     } for r in rank]
+    print("Ranked taker")
     return JsonResponse(res, safe=False)
 
 
@@ -154,4 +155,5 @@ def rank_rider(request):
         'score': round(r.score_as_rider / r.times_as_rider) \
                  if r.times_as_rider > 0 else 0,
     } for r in rank]
+    print("Ranked rider")
     return JsonResponse(res, safe=False)

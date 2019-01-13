@@ -65,6 +65,7 @@ def lanuch(request):
         dest_lat = data['elat'],
     )
     trip.save()
+    print("Successfully launched")
     return JsonResponse({'tid': trip.id})
 
 
@@ -143,6 +144,7 @@ def end(request):
     rider.times_as_rider += 1
     rider.rose += 1
     rider.save()
+    print("Trip ended")
     return JsonResponse({'time': dur}) 
 
 
