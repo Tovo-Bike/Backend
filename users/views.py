@@ -33,8 +33,11 @@ def show_history(request):
     """
     data = json.loads(request.body)
     uid = data['uid']
-    his = Trip.objects.filter(Q(taker__id=uid) | Q(
-        rider__id=uid)).exclude(arrival_time__isnull=True)
+    his = Trip.objects.filter(taker__id=uid) | Trip.objects.filter(rider__id=uid)
+   
+    print("aaa", his)
+    his.exclude(start_time__isnull=True).exclude(arrival_time__isnull=True)
+    print("bbb", his)
     res = [{
         'taker': h.taker.name,
         'rider': h.rider.name,
@@ -52,7 +55,8 @@ def show_profile(request):
     GET: A user require its profile
     """
     data = json.loads(request.body)
-    user = User.objects.get(data['uid'])
+    user = User.objects.get(id=data['uid'])
+    print("name", user.name)
     res = {
         'name': user.name,
         'email': user.email,
