@@ -139,7 +139,8 @@ def rank_taker(request):
         'title' : r.title_equipped.name if r.title_equipped is not None else "",
         'gear' : r.gear,
         'day' : (datetime.now().date() - r.reg_time).days,
-        'image': r.image
+        'image': r.image,
+        'score': round(r.score_as_taker / r.times_as_taker, 5) if r._times_as_taker > 0 else 0
     } for r in rank]
     
     return JsonResponse(res, safe=False)
@@ -154,6 +155,8 @@ def rank_rider(request):
         'name' : r.name,
         'title' : r.title_equipped.name if r.title_equipped is not None else "",
         'rose' : r.rose,
-        'image': r.image
+        'day' : (datetime.now().date() - r.reg_time).days,
+        'image': r.image,
+        'score': round(r.score_as_rider / r.times_as_rider, 5) if r._times_as_rider > 0 else 0
     } for r in rank]
     return JsonResponse(res, safe=False)
