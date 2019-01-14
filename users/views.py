@@ -39,6 +39,7 @@ def show_history(request):
         arrival_time__isnull=False,
     )
     res = [{
+        'tid': h.id,
         'taker': h.taker.name,
         'rider': h.rider.name,
         'taker_score': h.taker_score,
@@ -89,7 +90,6 @@ def update(request):
     user.name = data['name']
     user.email = data['email']
     user.weight = data['weight']
-    user.image = data['image']
     user.gender = data['gender']
 
     user.save()
