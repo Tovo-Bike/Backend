@@ -140,7 +140,7 @@ def rank_taker(request):
         'gear' : r.gear,
         'day' : (datetime.now().date() - r.reg_time).days,
         'image': r.image,
-        'score': round(r.score_as_taker / r.times_as_taker, 5) if r.times_as_taker > 0 else 0
+        'score': round(r.score_as_taker / r.times_as_taker, 1) if r.times_as_taker > 0 else 0
     } for r in rank]
     
     return JsonResponse(res, safe=False)
@@ -157,6 +157,6 @@ def rank_rider(request):
         'rose' : r.rose,
         'day' : (datetime.now().date() - r.reg_time).days,
         'image': r.image,
-        'score': round(r.score_as_rider / r.times_as_rider, 5) if r.times_as_rider > 0 else 0
+        'score': round(r.score_as_rider / r.times_as_rider, 1) if r.times_as_rider > 0 else 0
     } for r in rank]
     return JsonResponse(res, safe=False)
