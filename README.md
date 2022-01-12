@@ -1,4 +1,4 @@
-# Tovo Backend
+# Backend for TOVO: An Uber-like Bike-sharing Service
 
 ## Set up
 
@@ -10,10 +10,11 @@ pip install Pillow
 
 ## API
 
-### 使用者
+### User
 
 #### "/user/his"
 
+Get a user's history order
 獲得使用者歷史紀錄
 
 * method: GET
@@ -30,6 +31,7 @@ pip install Pillow
 
 #### "/user/profile"
 
+Get a user's profile
 獲得使用者個人檔案
 
 * method: GET
@@ -47,6 +49,7 @@ pip install Pillow
 
 #### "/user/all"
 
+Get a list of all other users
 獲得自己以外的使用者清單
 
 * method: GET
@@ -58,6 +61,7 @@ pip install Pillow
 
 #### "/user/create"
 
+Register a new user
 註冊新使用者
 
 * method: POST
@@ -70,6 +74,7 @@ pip install Pillow
 
 #### "/user/login"
 
+Log-in
 登入
 
 * method: POST
@@ -82,6 +87,7 @@ pip install Pillow
 
 #### "/user/update"
 
+Update a user's profile
 更新個人資料
 
 * method: POST
@@ -94,10 +100,11 @@ pip install Pillow
 * return: none
 
 
-## 旅程
+## Trip
 
 #### "/trip/"
 
+Check available orders
 查看還沒有人接的單
 
 * method: GET
@@ -117,6 +124,7 @@ pip install Pillow
 
 #### "/trip/go"
 
+Add a new trip
 新增旅程
 
 * method: POST
@@ -131,6 +139,7 @@ pip install Pillow
 
 #### "/trip/accept"
 
+Take someone's order
 接單
 
 * method: POST
@@ -141,6 +150,7 @@ pip install Pillow
 
 #### "/trip/start"
 
+Start a trip
 旅程開始
 
 * method: POST
@@ -150,6 +160,7 @@ pip install Pillow
 
 #### "/trip/end"
 
+End a trip
 旅程結束
 
 * method: POST
@@ -159,6 +170,7 @@ pip install Pillow
 
 #### "/trip/rate"
 
+Score a trip
 評分，自動自動判斷誰評誰
 
 * method: POST
@@ -168,11 +180,11 @@ pip install Pillow
     * "point" (int)
 * return: none
 
-## 獎賞
+## Awards
 
 #### "/buy"
 
-買 title
+Buy a title
 
 * method: POST
 * args: 
@@ -182,7 +194,7 @@ pip install Pillow
 
 #### "/equip"
 
-裝備 title
+Equip a title
 
 * method: POST
 * args:
@@ -192,7 +204,7 @@ pip install Pillow
 
 #### "/give"
 
-轉錢
+Transfer money
 
 * method: POST
 * args:
@@ -204,7 +216,7 @@ pip install Pillow
 
 #### "/titles"
 
-查看可購買的 titles
+Check titles for sale
 
 * method: GET
 * args: none
